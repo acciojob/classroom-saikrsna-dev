@@ -9,6 +9,11 @@ public class StudentRepositary {
     HashMap<String, Teacher> teacherMap;
     HashMap<String, List<String>> teacherStudentList;
 
+    public StudentRepositary(){
+        this.studentMap = new HashMap<String, Student>();
+        this.teacherMap = new HashMap<String, Teacher>();
+        this.teacherStudentList = new HashMap<String, List<String>>();
+    }
     public void addStudent(Student student){
         studentMap.put(student.getName(), student);
     }
@@ -24,18 +29,10 @@ public class StudentRepositary {
         teacherStudentList.put(teacher, newlist);
     }
     public Student getStudentByName(String name){
-        Student student = null;
-        if(studentMap.containsKey(name)){
-            student = studentMap.get(name);
-        }
-        return student;
+            return studentMap.get(name);
     }
     public Teacher getTeacherByName(String name){
-        Teacher teacher = null;
-        if(teacherMap.containsKey(name)){
-            teacher = teacherMap.get(name);
-        }
-        return teacher;
+        return teacherMap.get(name);
     }
     public List<String> getStudentsByTeacherName(String teacher){
         List<String> list = new ArrayList<>();
@@ -53,8 +50,8 @@ public class StudentRepositary {
     public void deleteTeacherByName(String name, List<String> students){
         teacherStudentList.remove(name);
         teacherMap.remove(name);
-        for(String student : students){
-            studentMap.remove(student);
-        }
+    }
+    public void removeStudent(String name){
+        studentMap.remove(name);
     }
 }

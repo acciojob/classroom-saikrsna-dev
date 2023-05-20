@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 @Service
 public class StudentService {
     @Autowired
@@ -16,9 +18,11 @@ public class StudentService {
         studentRepositary.addTeacher(teacher);
     }
     public void addStudentTeacherPair(String student, String teacher){
-        studentRepositary.addStudentTeacherPair(student, teacher);
-    }
+        if(Objects.nonNull(studentRepositary.getStudentByName(student)) && Objects.nonNull(studentRepositary.getTeacherByName(teacher))){
+            studentRepositary.addStudentTeacherPair(student, teacher);
+        }
 
+    }
     public Student getStudentByName(String name){
         return studentRepositary.getStudentByName(name);
     }
@@ -34,6 +38,9 @@ public class StudentService {
     public void deleteTeacherByName(String name){
         List<String> students = studentRepositary.getStudentsByTeacherName(name);
         studentRepositary.deleteTeacherByName(name, students);
+        for(String student : students){
+            studentRepositary.removeStudent(student);
+        }
     }
     public void deleteAllTeachers(){
         List<String> teachers = studentRepositary.getAllTeachers();
