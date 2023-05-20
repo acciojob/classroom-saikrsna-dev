@@ -24,6 +24,7 @@ public class StudentService {
 
     }
     public Student getStudentByName(String name){
+
         return studentRepositary.getStudentByName(name);
     }
     public Teacher getTeacherByName(String name){
